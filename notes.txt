@@ -1,0 +1,26 @@
+
+
+Initialize
+npm init
+
+node index.js
+
+npm install express
+
+npm install cors
+
+npm install dotenv
+
+"scripts": {
+    "start": "node server",
+    "dev": "node --watch index"
+  },
+  
+npm run dev
+
+Update Module:
+    npm update
+    
+    Manual Update:
+        npm install modulename@latest
+        npm install modulename@~2.2
