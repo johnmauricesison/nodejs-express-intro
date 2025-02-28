@@ -1,6 +1,7 @@
 
 
 // const http = require('http');
+
 const def = require('./mymodule.js');
 
 const router = require('express').Router();
@@ -24,9 +25,9 @@ router.get('/loancalculator/:loanAmount/:paymentTerms', (req, res) => {
     }
 
     res.send(`
-        Interest: ${def.InterestValue(loanAmount, paymentTerms)}<br>
-        Total Amount: ${def.TotalAmount(loanAmount, paymentTerms)}<br>
-        Amortization: ${def.Amortization(loanAmount, paymentTerms)}<br>
+        Interest: ${def.NumFormat(def.InterestValue(loanAmount, paymentTerms))}<br>
+        Total Amount: ${def.NumFormat(def.TotalAmount(loanAmount, paymentTerms))}<br>
+        Amortization: ${def.NumFormat(def.Amortization(loanAmount, paymentTerms))}<br>
         `
     )
 });
