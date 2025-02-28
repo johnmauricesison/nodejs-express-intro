@@ -24,3 +24,41 @@ Update Module:
     Manual Update:
         npm install modulename@latest
         npm install modulename@~2.2
+
+
+DELETE
+router.delete('/loancalculator/delete/:id', (req, res) => {
+    let loanId = parseInt(req.params.id);
+
+    let index = loans.findIndex(loan => loan.id === loanId);
+    if (index === -1) {
+        return res.status(404).send("Error: Loan ID not found");
+    }
+
+    loans.splice(index, 1); 
+    res.send(`Loan ID ${loanId} deleted successfully.`);
+});
+
+GET
+router.get('/loancalculator/:id', (req, res) => {
+    let loanId = parseInt(req.params.id);
+
+    let loan = loans.find(loan => loan.id === loanId);
+    if (!loan) {
+        return res.status(404).send("Error: Loan ID not found.");
+    }
+
+    
+    let interest = def.InterestValue(loan.loanAmount, loan.paymentTerms);
+    let totalAmount = def.TotalAmount(loan.loanAmount, loan.paymentTerms);
+    let amortization = def.Amortization(loan.loanAmount, loan.paymentTerms);
+
+    res.send(`
+        Loan ID: ${loan.id}<br>
+        Loan Amount: ${def.NumFormat(loan.loanAmount)}<br>
+        Payment Terms: ${loan.paymentTerms} months<br>
+        Interest: ${def.NumFormat(interest)}<br>
+        Total Amount: ${def.NumFormat(totalAmount)}<br>
+        Amortization: ${def.NumFormat(amortization)}<br>
+    `);
+});
